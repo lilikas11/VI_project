@@ -25,16 +25,16 @@ export default function Theme(colors) {
 
   return {
     primary: {
-      lighter: blue[0],
-      100: blue[1],
-      200: blue[2],
-      light: blue[3],
-      400: blue[4],
-      main: blue[5],
-      dark: blue[6],
-      700: blue[7],
-      darker: blue[8],
-      900: blue[9],
+      lighter: red[0],
+      100: red[1],
+      200: red[2],
+      light: red[3],
+      400: red[4],
+      main: red[5],
+      dark: red[6],
+      700: red[7],
+      darker: red[8],
+      900: red[9],
       contrastText
     },
     secondary: {
