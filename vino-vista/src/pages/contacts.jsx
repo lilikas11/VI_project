@@ -23,13 +23,15 @@ const ContactPage = () => {
 
   return (
     <div className="relative min-h-screen flex">
-      <div className="relative min-h-screen bg-ghost-white"></div>
+      {/* Sidebar */}
       <div className="w-1/5 fixed top-0 left-0 h-full z-10">
         <Menu />
       </div>
 
-      <div className="ml-1/5 w-4/5 p-8 flex flex-col items-center justify-center">
-        <div className="max-w-xl w-full bg-white p-8 rounded-lg shadow-lg">
+      {/* Main Content */}
+      <div className="ml-[20%] w-[80%] p-8 flex flex-row items-center justify-center">
+        {/* Contact Card */}
+        <div className="max-w-xl w-full bg-white p-8 rounded-lg shadow-2xl shadow-lime-700">
           <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">
             Contact Us
           </h1>
@@ -97,6 +99,54 @@ const ContactPage = () => {
               </button>
             </div>
           </form>
+        </div>
+
+        {/* Chat Section */}
+        <div className="ml-[10%] space-y-12">
+          <div className="chat chat-start">
+            <div className="chat-image avatar mr-4">
+              <div className="w-24 rounded-full">
+                <img
+                  alt="Tailwind CSS chat bubble component"
+                  src="https://i.pinimg.com/736x/1c/c5/35/1cc535901e32f18db87fa5e340a18aff.jpg"
+                />
+              </div>
+            </div>
+            <div className="chat-header">We are here to help you!</div>
+            <div className="chat-bubble">Find us on Instagram at @vino&vista</div>
+            <div className="chat-footer opacity-50">Delivered</div>
+          </div>
+          <div className="chat chat-end">
+            <div className="chat-image avatar ml-4">
+              <div className="w-24 rounded-full">
+                <img
+                  alt="Tailwind CSS chat bubble component"
+                  src="https://i.pinimg.com/736x/1c/c5/35/1cc535901e32f18db87fa5e340a18aff.jpg"
+                />
+              </div>
+            </div>
+            <div className="chat-header">Any questions?</div>
+            <div className="chat-bubble">
+              Telephone: +351 976663322 <br />
+              Email: vinovista@gmail.com
+            </div>
+            <div className="chat-footer opacity-50">Delivery</div>
+          </div>
+          <div className="chat chat-start">
+            <div className="chat-image avatar mr-4">
+              <div className="w-24 rounded-full">
+                <img
+                  alt="Tailwind CSS chat bubble component"
+                  src="https://i.pinimg.com/736x/1c/c5/35/1cc535901e32f18db87fa5e340a18aff.jpg"
+                />
+              </div>
+            </div>
+            <div className="chat-header">Vino&Vista has a compromisse with you!</div>
+            <div className="chat-bubble">
+              You can search for your question in <br/>the  FAQ section of our website.
+            </div>
+            <div className="chat-footer opacity-50">Delivery</div>
+          </div>
         </div>
       </div>
     </div>

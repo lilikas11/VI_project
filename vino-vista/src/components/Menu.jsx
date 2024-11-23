@@ -13,11 +13,11 @@ function Menu() {
   return (
     <div className="h-full bg-lightgreen p-5 shadow-md rounded-md m-4">
       <ul className="space-y-6 ml-4">
-        <li className="flex items-center font-bold text-3xl">
-          <img src={grape} className="w-8 h-8 mr-2" alt="Grape Icon" />
+        <li className="flex items-center font-bold text-3xl mt-4">
+          <img src={grape} className="w-10 h-10 mr-2" alt="Grape Icon" />
           VinoVista
         </li>
-
+        <div className="divider"></div>
         <li className="text-lg font-bold flex items-center hover:text-green-700">
           <i className="fi fi-rr-home mr-3 text-xl"></i>
           <Link to="/" className="flex-1">Home</Link>

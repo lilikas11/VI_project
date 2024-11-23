@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 function Card({ title, description, image }) {
   return (
-    <div className="card lg:card-side bg-lightgreen shadow-xl rounded-md">
+    <div className="card lg:card-side shadow-xl rounded-md">
       <figure>
         <img
           src={image}

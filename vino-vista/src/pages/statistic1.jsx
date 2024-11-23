@@ -10,11 +10,11 @@ function Statistics1() {
 
   return (
     <div className="min-h-screen bg-ghost-white flex">
-      <div className="w-64 h-full fixed top-0 left-0 z-10">
+      <div className="w-1/5 h-full fixed top-0 left-0 z-10">
         <Menu />
       </div>
 
-      <div className="flex-1 ml-64 p-8"> 
+      <div className="flex-1 ml-[20%] p-8">
         <div className="bg-white shadow-lg rounded-xl p-6">
           <h2 className="text-3xl font-semibold text-center text-green-800 mb-6">
             Regional Wine Quantity Distribution by Type
