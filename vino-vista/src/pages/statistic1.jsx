@@ -1,11 +1,15 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import Menu from "../components/Menu";
+import WineBarChart from "../graphs/WineBarChart";
 
 function Statistics1() {
-  const svgRef = useRef(null);
+  const [wineData, setWineData] = useState(null);
 
   useEffect(() => {
-    // Your D3.js chart logic here if needed.
+    fetch('DataSet_wine.json')
+      .then(response => response.json())
+      .then(data => setWineData(data))
+      .catch(error => console.error('Error loading wine data:', error));
   }, []);
 
   return (
@@ -23,8 +27,14 @@ function Statistics1() {
             This graph represents the regional distribution of wines by type, including Red, White, and Rose wines.
             The data visualizes how each region performs with its wine production.
           </p>
-          <div className="flex justify-center">
-            <svg ref={svgRef} width="800" height="500"></svg>
+          <div className="w-full h-[600px]">
+            {wineData ? (
+              <WineBarChart data={wineData} />
+            ) : (
+              <div className="flex items-center justify-center h-full">
+                <p className="text-gray-500">Loading data...</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

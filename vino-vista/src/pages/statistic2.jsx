@@ -1,16 +1,20 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import Menu from "../components/Menu";
+import WineScatterPlot from "../graphs/WineScatterPlot";
 
 function Statistics2() {
-  const svgRef = useRef(null);
+  const [wineData, setWineData] = useState(null);
 
   useEffect(() => {
-    // Your D3.js chart logic for Statistics2 can go here
+    // Fetch the data
+    fetch('DataSet_wine.json')
+      .then(response => response.json())
+      .then(data => setWineData(data))
+      .catch(error => console.error('Error loading wine data:', error));
   }, []);
 
   return (
     <div className="min-h-screen bg-ghost-white flex">
-
       <div className="w-1/5 h-full fixed top-0 left-0 z-10">
         <Menu />
       </div>
@@ -21,11 +25,17 @@ function Statistics2() {
             Wine Types Quantities Distributions by Region
           </h2>
           <p className="text-lg text-gray-700 text-center mb-8">
-            This graph displays the distribution of wine quantities by type in different regions, highlighting the performance
-            of each wine type across various regions.
+            This graph displays the distribution of wine quantities by type in different regions, 
+            highlighting the performance of each wine type across various regions.
           </p>
-          <div className="flex justify-center">
-            <svg ref={svgRef} width="800" height="500"></svg>
+          <div className="w-full h-[600px]">
+            {wineData ? (
+              <WineScatterPlot data={wineData} />
+            ) : (
+              <div className="flex items-center justify-center h-full">
+                <p className="text-gray-500">Loading data...</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
