@@ -38,7 +38,7 @@
       // Paleta de cores para cada tipo de vinho
       const color = d3.scaleOrdinal()
                       .domain(["Red Total", "Red Vinho licoroso com DOP", "Red Vinho com DOP", "Red Vinho com IGP", "Red Vinho com indicação de casta", "Red Vinho sem certificação", "White Total", "White Vinho licoroso com DOP", "White Vinho com DOP", "White Vinho com IGP", "White Vinho com indicação de casta", "White Vinho sem certificação"])
-                      .range(d3.schemeCategory10);
+                      .range(["#600010", "#880315", "#B00B1B", "#D81622", "#FF252D", "#FF4F4E", "#045107",  "#279C1F", "#41C32A", "#69CF47", "#8FDD6B", "#B4E893" ]);
 
       // Eixos
       svg.append("g")
@@ -51,6 +51,23 @@
       svg.append("g")
          .attr("transform", `translate(${margin.left},0)`)
          .call(d3.axisLeft(y));
+
+      // Legenda do eixo X
+      svg.append("text")
+         .attr("class", "x-axis-label")
+         .attr("text-anchor", "end")
+         .attr("x", width / 2 + margin.left)
+         .attr("y", height - margin.bottom + 50)
+         .text("Wine Regions");
+
+      // Legenda do eixo Y
+      svg.append("text")
+         .attr("class", "y-axis-label")
+         .attr("text-anchor", "end")
+         .attr("x", -height / 2 + margin.top)
+         .attr("y", margin.left - 60)
+         .attr("transform", "rotate(-90)")
+         .text("Quantidade de Vinho");
 
       // Grelha horizontal
       svg.append("g")
