@@ -16,10 +16,6 @@
     (async function() {
       const data = await d3.json("DataSet_wine.json");
 
-      // Remove "Portugal" e "Continente"
-      delete data.Portugal;
-      delete data.Continente;
-
       // Cria o seletor de regiões
       const regionSelect = d3.select("#region-select")
                              .on("change", function() {
@@ -40,14 +36,18 @@
           children: [
             {
               name: "Branco",
-              children: Object.entries(regionData).map(([quality, values]) => ({
+              children: Object.entries(regionData)
+              .filter(([quality]) => quality !== "Total")
+              .map(([quality, values]) => ({
                 name: quality,
                 value: +values["Verde"] || 0,
               })),
             },
             {
               name: "Tinto",
-              children: Object.entries(regionData).map(([quality, values]) => ({
+              children: Object.entries(regionData)
+              .filter(([quality]) => quality !== "Total")
+              .map(([quality, values]) => ({
                 name: quality,
                 value: +values["Tinto"] || 0,
               })),
@@ -62,7 +62,11 @@
         const height = width;
         const radius = width / 6;
 
-        const color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
+        const color = d3.scaleOrdinal()
+          .domain([
+            "Tinto", "Branco"
+          ])
+          .range(["#600010", "#045107"]);
 
         const hierarchy = d3.hierarchy(data)
           .sum(d => d.value)
@@ -83,9 +87,17 @@
 
         const svg = d3.select("#sunburst")
           .attr("viewBox", [-width / 2, -height / 2, width, width])
-          .style("font", "10px sans-serif");
+          .style("font", "11px sans-serif");
 
         svg.selectAll("*").remove(); // Limpa gráfico anterior
+
+        // Texto central
+        const centerText = svg.append("text")
+          .attr("text-anchor", "middle")
+          .attr("dy", "0.35em")
+          .style("font-size", "15px")
+          .style("font-weight", "bold")
+          .text("Click on the wine color to see more");
 
         const path = svg.append("g")
           .selectAll("path")
@@ -94,14 +106,24 @@
           .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data.name); })
           .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
           .attr("pointer-events", d => arcVisible(d.current) ? "auto" : "none")
-          .attr("d", d => arc(d.current));
+          .attr("d", d => arc(d.current))
+          .on("mouseover", function(event, d) {
+            const percentage = ((d.value / root.value) * 100).toFixed(2);
+            d3.select("body").selectAll(".tooltip").data([d]).join("div")
+              .attr("class", "tooltip")
+              .style("position", "absolute")
+              .style("background", "#fff")
+              .style("border", "1px solid #ccc")
+              .style("padding", "5px")
+              .style("left", `${event.pageX + 10}px`)
+              .style("top", `${event.pageY - 20}px`)
+              .html(`<strong>${d.data.name}:</strong> ${d.value} (${percentage}%)`);
+          })
+          .on("mouseout", () => d3.selectAll(".tooltip").remove());
 
         path.filter(d => d.children)
           .style("cursor", "pointer")
           .on("click", clicked);
-
-        path.append("title")
-          .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n${d3.format(",d")(d.value)}`);
 
         const label = svg.append("g")
           .attr("pointer-events", "none")
@@ -123,6 +145,12 @@
           .on("click", clicked);
 
         function clicked(event, p) {
+          if (p.depth === 1) {
+            centerText.text("Click here to go back");
+          } else {
+            centerText.text("Click on the wine color to see more");
+          }
+
           parent.datum(p.parent || root);
 
           root.each(d => d.target = {
