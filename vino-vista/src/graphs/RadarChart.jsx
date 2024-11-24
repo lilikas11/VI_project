@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import * as d3 from 'd3';
+import { useEffect, useRef } from "react";
+import * as d3 from "d3";
 
 const RadarChart = ({ data }) => {
   const svgRef = useRef(null);
@@ -20,88 +20,32 @@ const RadarChart = ({ data }) => {
       "Vinho com indicação de casta",
     ];
 
-    // Clear previous SVG content
-    d3.select(svgRef.current).selectAll("*").remove();
-
-    const svg = d3.select(svgRef.current)
+    // Select the SVG element and ensure it has the proper size
+    const svg = d3
+      .select(svgRef.current)
       .attr("width", width)
       .attr("height", height);
 
     // Process data
     const prepareRadarData = (regionData) => ({
-      Tinto: qualities.map(quality => +regionData[quality]?.Tinto || 0),
-      Verde: qualities.map(quality => +regionData[quality]?.Verde || 0),
+      Tinto: qualities.map((quality) => +regionData[quality]?.Tinto || 0),
+      Verde: qualities.map((quality) => +regionData[quality]?.Verde || 0),
     });
 
     const radarData = prepareRadarData(data);
 
     // Scales
     const maxValue = Math.max(...radarData.Tinto, ...radarData.Verde);
-    const scale = d3.scaleLinear()
+    const scale = d3
+      .scaleLinear()
       .domain([0, maxValue])
       .range([0, radius]);
 
     const angleSlice = (2 * Math.PI) / qualities.length;
 
-    // Draw radial grid
-    const gridLevels = 5;
-    for (let i = 0; i <= gridLevels; i++) {
-      const level = (radius / gridLevels) * i;
-
-      svg.append("circle")
-        .attr("cx", center.x)
-        .attr("cy", center.y)
-        .attr("r", level)
-        .style("fill", "none")
-        .style("stroke", "lightgray")
-        .style("stroke-dasharray", "2,2")
-        .style("stroke-width", 0.5);
-
-      // Add level labels
-      if (i > 0) {
-        const value = Math.round((maxValue / gridLevels) * i);
-        svg.append("text")
-          .attr("x", center.x)
-          .attr("y", center.y - level)
-          .attr("dy", "-0.3em")
-          .style("font-size", "10px")
-          .style("text-anchor", "middle")
-          .text(value);
-      }
-    }
-
-    // Add axes and labels
-    qualities.forEach((quality, i) => {
-      const angle = angleSlice * i - Math.PI / 2;
-      const x2 = center.x + Math.cos(angle) * radius;
-      const y2 = center.y + Math.sin(angle) * radius;
-
-      // Axis lines
-      svg.append("line")
-        .attr("x1", center.x)
-        .attr("y1", center.y)
-        .attr("x2", x2)
-        .attr("y2", y2)
-        .style("stroke", "gray")
-        .style("stroke-width", 0.5);
-
-      // Labels with padding
-      const padding = 20;
-      const labelX = center.x + Math.cos(angle) * (radius + padding);
-      const labelY = center.y + Math.sin(angle) * (radius + padding);
-
-      svg.append("text")
-        .attr("x", labelX)
-        .attr("y", labelY)
-        .style("font-size", "12px")
-        .style("font-weight", "bold")
-        .style("text-anchor", "middle")
-        .text(quality);
-    });
-
     // Calculate radar points
-    const calculatePoints = (data) => {
-      return data.map((value, i) => {
+    const calculatePoints = (data) =>
+      data.map((value, i) => {
         const angle = angleSlice * i - Math.PI / 2;
         const r = scale(value);
         return [
@@ -109,63 +53,91 @@ const RadarChart = ({ data }) => {
           center.y + Math.sin(angle) * r,
         ];
       });
-    };
 
-    // Draw radar areas
     const tintoPoints = calculatePoints(radarData.Tinto);
     const verdePoints = calculatePoints(radarData.Verde);
 
-    // Add tooltips
-    const tooltip = d3.select("body")
-      .append("div")
-      .attr("class", "tooltip")
-      .style("position", "absolute")
-      .style("visibility", "hidden")
-      .style("background-color", "white")
-      .style("padding", "5px")
-      .style("border", "1px solid #ddd")
-      .style("border-radius", "5px");
+    // Update or create radial grid
+    const gridLevels = 5;
+    const grid = svg.selectAll(".grid").data([null]);
+    grid.enter()
+      .append("g")
+      .attr("class", "grid")
+      .merge(grid)
+      .selectAll("circle")
+      .data(d3.range(1, gridLevels + 1))
+      .join("circle")
+      .attr("cx", center.x)
+      .attr("cy", center.y)
+      .attr("r", (d) => (radius / gridLevels) * d)
+      .style("fill", "none")
+      .style("stroke", "lightgray")
+      .style("stroke-dasharray", "2,2")
+      .style("stroke-width", 0.5);
 
-    // Draw "Tinto" area
-    svg.append("polygon")
-      .attr("points", tintoPoints.map(d => d.join(",")).join(" "))
-      .style("fill", "red")
-      .style("fill-opacity", 0.3)
-      .style("stroke", "red")
-      .style("stroke-width", 2)
-      .on("mouseover", (event) => {
-        tooltip
-          .style("visibility", "visible")
-          .html("Vinho Tinto")
-          .style("left", (event.pageX + 10) + "px")
-          .style("top", (event.pageY - 10) + "px");
-      })
-      .on("mouseout", () => {
-        tooltip.style("visibility", "hidden");
-      });
+    // Add/update level labels
+    const labels = svg.selectAll(".level-label").data(d3.range(1, gridLevels + 1));
+    labels
+      .enter()
+      .append("text")
+      .attr("class", "level-label")
+      .merge(labels)
+      .attr("x", center.x)
+      .attr("y", (d) => center.y - (radius / gridLevels) * d)
+      .attr("dy", "-0.3em")
+      .style("font-size", "10px")
+      .style("text-anchor", "middle")
+      .text((d) => Math.round((maxValue / gridLevels) * d));
 
-    // Draw "Verde" area
-    svg.append("polygon")
-      .attr("points", verdePoints.map(d => d.join(",")).join(" "))
-      .style("fill", "green")
-      .style("fill-opacity", 0.3)
-      .style("stroke", "green")
-      .style("stroke-width", 2)
-      .on("mouseover", (event) => {
-        tooltip
-          .style("visibility", "visible")
-          .html("Vinho Verde")
-          .style("left", (event.pageX + 10) + "px")
-          .style("top", (event.pageY - 10) + "px");
-      })
-      .on("mouseout", () => {
-        tooltip.style("visibility", "hidden");
-      });
+    // Update or create axes and labels
+    const axes = svg.selectAll(".axis").data(qualities);
+    axes
+      .enter()
+      .append("line")
+      .attr("class", "axis")
+      .merge(axes)
+      .attr("x1", center.x)
+      .attr("y1", center.y)
+      .attr("x2", (_, i) => center.x + Math.cos(angleSlice * i - Math.PI / 2) * radius)
+      .attr("y2", (_, i) => center.y + Math.sin(angleSlice * i - Math.PI / 2) * radius)
+      .style("stroke", "gray")
+      .style("stroke-width", 0.5);
 
-    // Cleanup function
-    return () => {
-      tooltip.remove();
+    const axisLabels = svg.selectAll(".axis-label").data(qualities);
+    axisLabels
+      .enter()
+      .append("text")
+      .attr("class", "axis-label")
+      .merge(axisLabels)
+      .attr("x", (_, i) => center.x + Math.cos(angleSlice * i - Math.PI / 2) * (radius + 20))
+      .attr("y", (_, i) => center.y + Math.sin(angleSlice * i - Math.PI / 2) * (radius + 20))
+      .style("font-size", "12px")
+      .style("font-weight", "bold")
+      .style("text-anchor", "middle")
+      .text((d) => d);
+
+    // Function to update radar areas with transitions
+    const updateArea = (className, points, color) => {
+      const area = svg.selectAll(`.${className}`).data([points]);
+      area
+        .enter()
+        .append("polygon")
+        .attr("class", className)
+        .merge(area)
+        .transition()
+        .duration(750)
+        .attr("points", (d) => d.map((p) => p.join(",")).join(" "))
+        .style("fill", color)
+        .style("fill-opacity", 0.3)
+        .style("stroke", color)
+        .style("stroke-width", 2);
     };
+
+    // Update "Tinto" area
+    updateArea("tinto-area", tintoPoints, "red");
+
+    // Update "Verde" area
+    updateArea("verde-area", verdePoints, "green");
   }, [data]);
 
   return (
