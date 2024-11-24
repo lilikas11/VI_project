@@ -15,12 +15,14 @@ function Menu() {
       <ul className="space-y-6 ml-4">
         <li className="flex items-center font-bold text-3xl mt-4">
           <img src={grape} className="w-10 h-10 mr-2" alt="Grape Icon" />
-          VinoVista
+          Vino&Vista
         </li>
         <div className="divider"></div>
         <li className="text-lg font-bold flex items-center hover:text-green-700">
           <i className="fi fi-rr-home mr-3 text-xl"></i>
-          <Link to="/" className="flex-1">Home</Link>
+          <Link to="/" className="flex-1">
+            Home
+          </Link>
         </li>
         <li className="text-lg font-bold">
           <button
@@ -72,12 +74,22 @@ function Menu() {
           )}
         </li>
         <li className="text-lg font-bold flex items-center hover:text-green-700">
+          <i className="fi fi-rr-search-alt mr-3 text-xl"></i>
+          <Link to="/info" className="flex-1">
+            Wine Info
+          </Link>
+        </li>
+        <li className="text-lg font-bold flex items-center hover:text-green-700">
           <i className="fi fi-rr-info mr-3 text-xl"></i>
-          <Link to="/about" className="flex-1">About Us</Link>
+          <Link to="/about" className="flex-1">
+            About Us
+          </Link>
         </li>
         <li className="text-lg font-bold flex items-center hover:text-green-700">
           <i className="fi fi-rr-envelope mr-3 text-xl"></i>
-          <Link to="/contacts" className="flex-1">Contacts</Link>
+          <Link to="/contacts" className="flex-1">
+            Contacts
+          </Link>
         </li>
       </ul>
     </div>
@@ -85,4 +97,3 @@ function Menu() {
 }
 
 export default Menu;
-

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Menu from "../components/Menu";
+import profile from "../assets/profilepic.png";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -108,7 +109,7 @@ const ContactPage = () => {
               <div className="w-24 rounded-full">
                 <img
                   alt="Tailwind CSS chat bubble component"
-                  src="https://i.pinimg.com/736x/1c/c5/35/1cc535901e32f18db87fa5e340a18aff.jpg"
+                  src={profile}
                 />
               </div>
             </div>
@@ -121,7 +122,7 @@ const ContactPage = () => {
               <div className="w-24 rounded-full">
                 <img
                   alt="Tailwind CSS chat bubble component"
-                  src="https://i.pinimg.com/736x/1c/c5/35/1cc535901e32f18db87fa5e340a18aff.jpg"
+                  src={profile}
                 />
               </div>
             </div>
@@ -137,7 +138,7 @@ const ContactPage = () => {
               <div className="w-24 rounded-full">
                 <img
                   alt="Tailwind CSS chat bubble component"
-                  src="https://i.pinimg.com/736x/1c/c5/35/1cc535901e32f18db87fa5e340a18aff.jpg"
+                  src={profile}
                 />
               </div>
             </div>

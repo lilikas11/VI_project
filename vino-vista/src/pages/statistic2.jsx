@@ -20,7 +20,7 @@ function Statistics2() {
       </div>
 
       <div className="flex-1 ml-[20%] p-8">
-        <div className="bg-white shadow-lg rounded-xl p-6">
+        <div className=" shadow-lg rounded-xl p-6">
           <h2 className="text-3xl font-semibold text-green-800 mb-6">
             Wine Types Quantities Distributions by Region
           </h2>

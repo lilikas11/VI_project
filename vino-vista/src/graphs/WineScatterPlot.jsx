@@ -22,7 +22,7 @@ const WineScatterPlot = ({ data }) => {
     const svg = d3.select(svgRef.current);
     const width = svg.node().getBoundingClientRect().width;
     const height = svg.node().getBoundingClientRect().height;
-    const margin = { top: 50, right: 250, bottom: 100, left: 100 };
+    const margin = { top: 50, right: 300, bottom: 100, left: 100 };
 
     // Remove Portugal and Continente from data
     const filteredData = { ...data };
@@ -135,8 +135,8 @@ const WineScatterPlot = ({ data }) => {
       }
     }
 
-    // Add points
-    svg
+    // Add points (circles)
+    const circles = svg
       .selectAll("circle")
       .data(plotData)
       .join("circle")
@@ -159,7 +159,7 @@ const WineScatterPlot = ({ data }) => {
           .tickFormat("")
       );
 
-    // Add legend with checkboxes
+    // Add legend with checkboxes inside a card (div)
     const legendContainer = svg
       .append("foreignObject")
       .attr("x", width - margin.right + 20)
@@ -170,12 +170,26 @@ const WineScatterPlot = ({ data }) => {
     const legendDiv = legendContainer
       .append("xhtml:div")
       .style("max-height", "100%")
-      .style("overflow-y", "auto");
+      .style("overflow-y", "visible")  // Remove scroll
+      .style("border", "1px solid #ddd")
+      .style("border-radius", "10px")
+      .style("padding", "20px")
+      .style("background-color", "#f9f9f9")
+      .style("box-shadow", "0 4px 8px rgba(0,0,0,0.1)");
+
+    // Title of the filters card
+    legendDiv
+      .append("h3")
+      .text("Filters")
+      .style("margin-bottom", "15px")
+      .style("font-size", "16px")
+      .style("font-weight", "bold")
+      .style("color", "#333");
 
     typeNames.forEach((type) => {
       const legendItem = legendDiv
         .append("div")
-        .style("margin-bottom", "8px")
+        .style("margin-bottom", "12px")
         .style("display", "flex")
         .style("align-items", "center");
 
@@ -187,22 +201,14 @@ const WineScatterPlot = ({ data }) => {
         .on("change", function () {
           const checked = this.checked;
           setVisibleTypes((prev) => ({ ...prev, [type]: checked }));
-          const circles = svg.selectAll(`.circle-${type.replace(/\s+/g, "-")}`);
-          if (checked) {
-            // Points reappear with animation
-            circles
-              .transition()
-              .duration(750)
-              .style("opacity", 1)
-              .attr("r", 7);
-          } else {
-            // Points disappear with animation
-            circles
-              .transition()
-              .duration(750)
-              .style("opacity", 0)
-              .attr("r", 0);
-          }
+
+          // Transições de opacidade e raio para os pontos
+          svg
+            .selectAll(`.circle-${type.replace(/\s+/g, "-")}`)
+            .transition()
+            .duration(750)
+            .style("opacity", checked ? 1 : 0)  // Transição de opacidade
+            .attr("r", checked ? 7 : 0);  // Transição de raio
         });
 
       const label = legendItem
@@ -221,12 +227,9 @@ const WineScatterPlot = ({ data }) => {
         .style("background-color", color(type))
         .style("margin-right", "8px");
 
-      label
-        .append("span")
-        .text(type)
-        .style("font-size", "12px");
+      label.append("span").text(type).style("font-size", "12px");
     });
-  }, [data]);
+  }, [data, visibleTypes]);
 
   return (
     <div className="relative w-full h-full">

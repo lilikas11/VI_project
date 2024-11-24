@@ -14,12 +14,10 @@ export default {
       'gray-dark': '#273444',
       'gray': '#8492a6',
       'gray-light': '#d3dce6',
-      'ghost-white': '#f3f4f6'
+      'ghost-white': '#f3f4f6',
+      'gray-overlay': 'rgba(31, 41, 55, 0.4)',
+      'white': '#ffffff',
     },
-    // fontFamily: {
-    //   sans: ['Graphik', 'sans-serif'],
-    //   serif: ['Merriweather', 'serif'],
-    // },
     extend: {
     },
   },
