@@ -188,12 +188,12 @@ function WineMap({ data, selectedColor, setSelectedColor, selectedQuality, setSe
   }, [svgRef, data, selectedColor, selectedQuality]);
 
   return (
-    <div className="wine-map-container">
+    <div className="wine-map-container h-full">
 {/* a partir daqui é o precepicio */}
       <svg
         ref={svgRef}
         id="map"
-        className="region__home__map w-full h-auto"
+        className="region__home__map w-full h-full"
         viewBox="0 0 620 1109"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

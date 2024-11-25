@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import grape from "../assets/grape.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "@flaticon/flaticon-uicons/css/all/all.css";
 
 function Menu() {
   const [isStatisticsOpen, setIsStatisticsOpen] = useState(false);
+  const location = useLocation();
 
   const toggleStatistics = () => {
     setIsStatisticsOpen(!isStatisticsOpen);
   };
+
+  useEffect(() => {
+    // Verifica se a URL atual corresponde a uma das páginas do dropdown Statistics
+    const isStatisticsPage = location.pathname.startsWith("/statistics");
+    if (isStatisticsPage) {
+      setIsStatisticsOpen(true);
+    } else {
+      setIsStatisticsOpen(false);
+    }
+  }, [location]); // Esse efeito será executado sempre que o caminho da URL mudar
 
   return (
     <div className="h-full bg-lightgreen p-5 shadow-md rounded-md m-4">
@@ -24,12 +35,12 @@ function Menu() {
             Home
           </Link>
         </li>
-        <li className="text-lg font-bold">
+        <li className="text-lg">
           <button
             onClick={toggleStatistics}
             className="w-full flex items-center justify-between text-left focus:outline-none"
           >
-            <span className="flex items-center">
+            <span className="flex items-center font-bold">
               <i className="fi fi-rr-stats mr-3 text-xl"></i>
               Statistics
             </span>
@@ -46,27 +57,27 @@ function Menu() {
               <ul className="space-y-2">
                 <li>
                   <Link to="/statistics-1" className="hover:underline">
-                    Statistics 1
+                    Regional Wine Quantity Distribution by Type
                   </Link>
                 </li>
                 <li>
                   <Link to="/statistics-2" className="hover:underline">
-                    Statistics 2
+                    Wine Types Quantities Distributions by Region
                   </Link>
                 </li>
                 <li>
                   <Link to="/statistics-3" className="hover:underline">
-                    Statistics 3
+                    Wine Type Distribution by Region
                   </Link>
                 </li>
                 <li>
                   <Link to="/statistics-4" className="hover:underline">
-                    Statistics 4
+                    Wine Type and Quantity Variation on a Map
                   </Link>
                 </li>
                 <li>
                   <Link to="/statistics-5" className="hover:underline">
-                    Statistics 5
+                    Difference Between Both Wine Types
                   </Link>
                 </li>
               </ul>

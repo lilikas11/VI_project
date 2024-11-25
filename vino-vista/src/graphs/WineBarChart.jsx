@@ -175,7 +175,7 @@ const WineBarChart = ({ data }) => {
         )}
       </div>
       <div className="w-1/4 p-4">
-        <div className="bg-white rounded shadow-xl p-4">
+        <div className="bg-white rounded shadow-md p-6">
           <h2 className="text-lg font-bold mb-4 text-darkgreen">Filters</h2>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
