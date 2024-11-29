@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Radar Chart - Vinho</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <label for="region-select">Escolha a Região:</label>
+      <select id="region-select"></select>
+    </div>
+    <svg width="800" height="800"></svg>
+
+    <script>
+      (async function () {
+        const data = await d3.json("DataSet_wine.json");
+
+        // Configurações do gráfico
+        const svg = d3.select("svg");
+        const width = +svg.attr("width");
+        const height = +svg.attr("height");
+        const radius = Math.min(width, height) / 2 - 100;
+        const center = { x: width / 2, y: height / 2 };
+        const qualities = [
+          "Vinho licoroso com DOP",
+          "Vinho com DOP",
+          "Vinho com IGP",
+          "Vinho sem certificação",
+          "Vinho com indicação de casta",
+        ];
+
+        // Função para processar os dados no formato necessário
+        function prepareRadarData(regionData) {
+          const tintoData = qualities.map(
+            (quality) => +regionData[quality]?.Tinto || 0
+          );
+          const verdeData = qualities.map(
+            (quality) => +regionData[quality]?.Verde || 0
+          );
+
+          return {
+            Tinto: tintoData,
+            Verde: verdeData,
+          };
+        }
+
+        // Criar e atualizar o gráfico
+        function createRadarChart(region) {
+          svg.selectAll("*").remove(); // Limpa o gráfico anterior
+
+          const regionData = data[region];
+          const radarData = prepareRadarData(regionData);
+
+          // Escala radial
+          const maxValue = Math.max(...radarData.Tinto, ...radarData.Verde);
+          const scale = d3
+            .scaleLinear()
+            .domain([0, maxValue])
+            .range([0, radius]);
+
+          // Criação do eixo radial
+          const angleSlice = (2 * Math.PI) / qualities.length;
+
+          // Desenhar grades radiais
+          const gridLevels = 5;
+          for (let i = 0; i <= gridLevels; i++) {
+            const level = (radius / gridLevels) * i;
+
+            svg
+              .append("circle")
+              .attr("cx", center.x)
+              .attr("cy", center.y)
+              .attr("r", level)
+              .style("fill", "none")
+              .style("stroke", "lightgray")
+              .style("stroke-dasharray", "2,2")
+              .style("stroke-width", 0.5);
+          }
+
+          // Adicionar rótulos dos níveis
+          for (let i = 1; i <= gridLevels; i++) {
+            const value = Math.round((maxValue / gridLevels) * i);
+            svg
+              .append("text")
+              .attr("x", center.x)
+              .attr("y", center.y - (radius / gridLevels) * i)
+              .attr("dy", "-0.3em")
+              .style("font-size", "10px")
+              .style("text-anchor", "middle")
+              .text(value);
+          }
+
+          // Adicionar eixos
+          // Adicionar eixos
+          qualities.forEach((quality, i) => {
+            const angle = angleSlice * i - Math.PI / 2; // Ângulo para cada qualidade
+            const x1 = center.x;
+            const y1 = center.y;
+            const x2 = center.x + Math.cos(angle) * radius;
+            const y2 = center.y + Math.sin(angle) * radius;
+
+            // Linhas dos eixos
+            svg
+              .append("line")
+              .attr("x1", x1)
+              .attr("y1", y1)
+              .attr("x2", x2)
+              .attr("y2", y2)
+              .style("stroke", "gray")
+              .style("stroke-width", 0.5);
+
+            // Adicionar "padding" ao rótulo radialmente
+            const padding = 20; // Ajuste o valor do padding para aumentar ou diminuir o afastamento
+            const labelX = center.x + Math.cos(angle) * (radius + padding);
+            const labelY = center.y + Math.sin(angle) * (radius + padding);
+
+            // Rótulos das qualidades
+            svg
+              .append("text")
+              .attr("x", labelX)
+              .attr("y", labelY)
+              .style("font-size", "12px")
+              .style("font-weight", "bold")
+              .style("text-anchor", "middle") // Centraliza os rótulos
+              .text(quality);
+          });
+
+          // Função para calcular os pontos do radar
+          function calculatePoints(data) {
+            return data.map((value, i) => {
+              const angle = angleSlice * i - Math.PI / 2;
+              const r = scale(value);
+              return [
+                center.x + Math.cos(angle) * r,
+                center.y + Math.sin(angle) * r,
+              ];
+            });
+          }
+
+          // Dados das áreas
+          const tintoPoints = calculatePoints(radarData.Tinto);
+          const verdePoints = calculatePoints(radarData.Verde);
+
+          // Desenhar área para "Tinto"
+          svg
+            .append("polygon")
+            .attr("points", tintoPoints.map((d) => d.join(",")).join(" "))
+            .style("fill", "red")
+            .style("fill-opacity", 0.3)
+            .style("stroke", "red")
+            .style("stroke-width", 2);
+
+          // Desenhar área para "Verde"
+          svg
+            .append("polygon")
+            .attr("points", verdePoints.map((d) => d.join(",")).join(" "))
+            .style("fill", "green")
+            .style("fill-opacity", 0.3)
+            .style("stroke", "green")
+            .style("stroke-width", 2);
+        }
+
+        // Criar o seletor de regiões
+        const regionSelect = d3.select("#region-select");
+        regionSelect
+          .selectAll("option")
+          .data(Object.keys(data))
+          .enter()
+          .append("option")
+          .text((d) => d);
+
+        // Atualizar gráfico ao selecionar região
+        regionSelect.on("change", function () {
+          createRadarChart(this.value);
+        });
+
+        // Inicializar com a primeira região
+        createRadarChart(Object.keys(data)[0]);
+      })();
+    </script>
+  </body>
+</html>
