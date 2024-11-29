@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Bar Chart de Vinho</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <div>
+    <label for="quality-select">Qualidade:</label>
+    <select id="quality-select">
+      <option value="Total">Total</option>
+      <option value="Vinho licoroso com DOP">Vinho licoroso com DOP</option>
+      <option value="Vinho com DOP">Vinho com DOP</option>
+      <option value="Vinho com IGP">Vinho com IGP</option>
+      <option value="Vinho com indicação de casta">Vinho com indicação de casta</option>
+      <option value="Vinho sem certificação">Vinho sem certificação</option>
+    </select>
+
+    <label for="color-select">Cor:</label>
+    <select id="color-select">
+      <option value="Total">Total</option>
+      <option value="Tinto">Red</option>
+      <option value="Verde">White</option>
+    </select>
+  </div>
+  <svg width="800" height="600"></svg>
+
+  <script>
+    (async function() {
+      // Carrega os dados
+      const data = await d3.json("DataSet_wine.json");
+
+      // Remove "Portugal" e "Continente"
+      delete data.Portugal;
+      delete data.Continente;
+
+      const svg = d3.select("svg");
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+      const margin = { top: 50, right: 50, bottom: 150, left: 100 };
+
+      const x = d3.scaleBand()
+                  .domain(Object.keys(data))
+                  .range([margin.left, width - margin.right])
+                  .padding(0.2);
+
+      const y = d3.scaleLinear()
+                  .range([height - margin.bottom, margin.top]);
+
+      const colorScale = d3.scaleOrdinal()
+                           .domain(["Total","Tinto", "Verde"])
+                           .range(["#4f8fa0", "#600010", "#045107"]);
+
+      const xAxis = svg.append("g")
+                       .attr("transform", `translate(0,${height - margin.bottom})`)
+                       .call(d3.axisBottom(x))
+                       .selectAll("text")
+                       .attr("transform", "rotate(-45)")
+                       .style("text-anchor", "end")
+                       .style("font-size", "14px");
+
+      const yAxis = svg.append("g")
+                       .attr("transform", `translate(${margin.left},0)`);
+
+      // Exibição de valor ao clicar
+      const tooltip = d3.select("body")
+                        .append("div")
+                        .style("position", "absolute")
+                        .style("background", "#fff")
+                        .style("border", "1px solid #ccc")
+                        .style("padding", "5px")
+                        .style("display", "none");
+
+      // Atualiza o gráfico com base na seleção
+      function updateChart(selectedQuality, selectedColor) {
+        const chartData = Object.entries(data).map(([region, qualities]) => {
+          const value = qualities[selectedQuality] && qualities[selectedQuality][selectedColor]
+            ? +qualities[selectedQuality][selectedColor]
+            : 0;
+          return {
+            region: region,
+            value: isNaN(value) ? 0 : value, // Converte para número e trata NaN
+          };
+        });
+
+        // Atualiza o domínio do eixo Y
+        y.domain([0, d3.max(chartData, d => d.value) || 5000]);
+
+        yAxis.transition()
+             .duration(750)
+             .call(d3.axisLeft(y));
+
+        const bars = svg.selectAll(".bar")
+                        .data(chartData, d => d.region);
+
+        bars.enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", d => x(d.region))
+            .attr("y", d => y(0))
+            .attr("width", x.bandwidth())
+            .attr("height", 0)
+            .attr("fill", colorScale(selectedColor))
+            .on("click", function(event, d) {
+              tooltip.style("display", "block")
+                     .style("left", `${event.pageX + 10}px`)
+                     .style("top", `${event.pageY - 20}px`)
+                     .html(`<strong>${d.region}:</strong> ${d.value}`);
+            })
+            .on("mouseout", () => tooltip.style("display", "none"))
+            .merge(bars)
+            .transition()
+            .duration(750)
+            .attr("x", d => x(d.region))
+            .attr("y", d => y(d.value))
+            .attr("width", x.bandwidth())
+            .attr("height", d => height - margin.bottom - y(d.value))
+            .attr("fill", colorScale(selectedColor));
+
+        bars.exit()
+            .transition()
+            .duration(750)
+            .attr("y", y(0))
+            .attr("height", 0)
+            .remove();
+      }
+
+      // Adiciona eventos nos selects
+      const qualitySelect = d3.select("#quality-select");
+      const colorSelect = d3.select("#color-select");
+
+      qualitySelect.on("change", function() {
+        updateChart(this.value, colorSelect.property("value"));
+      });
+
+      colorSelect.on("change", function() {
+        updateChart(qualitySelect.property("value"), this.value);
+      });
+
+      // Inicializa o gráfico com valores padrão
+      updateChart("Total", "Total");
+    })();
+  </script>
+  <style>
+    svg {
+      font-family: sans-serif;
+    }
+
+    .bar {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+
+    .bar:hover {
+      opacity: 1;
+    }
+
+    .axis text {
+      font-size: 12px;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+  </style>
+</body>
+</html>

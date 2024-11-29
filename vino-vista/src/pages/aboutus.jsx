@@ -1,42 +1,105 @@
+import React from 'react';
 import Menu from "../components/Menu";
-import Card from "../components/Card";
-import ProjectCard from "../components/ProjectCard";
 import lia from "../assets/lia.png";
 import liliana from "../assets/liliana.png";
 
 const AboutUs = () => {
   return (
     <div className="relative min-h-screen bg-ghost-white">
-      <div className="fixed top-0 left-0 w-1/5 h-full z-10">
+      <div className="w-1/5 h-full fixed top-0 left-0 z-10">
         <Menu />
       </div>
-      
-      {/* Seção dos Cards das Pessoas */}
-      <div className="ml-[20%] flex justify-center items-top space-x-8 p-4"> 
-        <Card 
-          title="Lia Cardoso" 
-          description="I am a full-stack developer with a passion for wine. I am excited to share my knowledge with you!" 
-          image={lia} 
-        />
-        <Card 
-          title="Liliana Ribeiro" 
-          description="I am a full-stack developer with a passion for wine. I am excited to share my knowledge with you!" 
-          image={liliana} 
-        />
-      </div>
 
-      <div className="ml-[20%] p-4 mt-4">
-        <ProjectCard 
-          title="About the Project"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin posuere leo ac ante tempus, nec efficitur velit dignissim. Vivamus quam ante, blandit et tincidunt a, convallis eu sapien. Nullam scelerisque maximus lobortis. Integer turpis dolor, bibendum vitae molestie sed, malesuada non purus. Vestibulum auctor ligula tellus, at semper justo venenatis eget. Donec at commodo turpis. Fusce sed ante vehicula lorem pharetra pellentesque. Nulla finibus a nunc rhoncus vehicula. Maecenas pretium nulla pellentesque urna condimentum dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse semper a elit non dapibus. Integer cursus, turpis quis vulputate condimentum, arcu quam fermentum justo, ac ultrices dui ante ut felis.
+      <div className="max-w-8xl mx-8 px-4 pt-4 pl-[20%]">
+        <div className="bg-white shadow-lg rounded-lg p-8 space-y-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h1 className="text-4xl font-bold text-gray-900">
+                Discover the world of wine through data and insights
+              </h1>
+              
+              <p className="text-gray-600 text-lg">
+                In an ever-evolving wine industry, understanding production trends and market dynamics is crucial. We provide comprehensive analytics and insights about global wine production, helping you make informed decisions.
+              </p>
 
-Curabitur nec est eu lectus tempus placerat sit amet in lacus. Curabitur condimentum risus ut nibh ornare gravida ac viverra erat. Quisque maximus auctor risus, ullamcorper aliquet dui condimentum vel. Integer in lacus magna. Donec nisl ipsum, vulputate sit amet ipsum eget, posuere gravida lorem. Integer in ipsum ut dolor lacinia porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nec dapibus urna. Proin ut finibus sapien, in dapibus eros. Nullam viverra quis velit vel ullamcorper. Proin consectetur gravida posuere. Quisque placerat tortor tincidunt, dictum risus at, rutrum sapien.
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-gray-900">Producers</h3>
+                  <p className="text-gray-600">Access detailed statistics about production volumes, grape varieties, and harvest data across different regions.</p>
+                </div>
 
-Nam eu maximus lectus. Aliquam vitae gravida lectus. Nunc malesuada at nisl non blandit. Vivamus feugiat tortor nec rhoncus congue. Quisque cursus sapien sed semper consectetur. Cras ut massa vitae erat pharetra laoreet. Morbi luctus metus nec est rhoncus tincidunt. Pellentesque congue pharetra ipsum, nec laoreet ipsum mollis non. Nullam fringilla pellentesque neque, eu porta neque mattis nec. Morbi non nisi magna. Nam velit justo, facilisis ut mi non, posuere pellentesque libero. Integer gravida magna nec elementum vulputate. Nullam eu purus non libero pharetra lacinia nec quis urna. Vivamus aliquam sem eu tempor facilisis. Nullam ac dictum enim, ut auctor ante. Phasellus sed nisl tristique quam sollicitudin iaculis.
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-gray-900">Market Analysis</h3>
+                  <p className="text-gray-600">Track market trends, consumption patterns, and export-import dynamics in the global wine trade.</p>
+                </div>
 
-Phasellus fringilla mi ut condimentum porttitor. Maecenas euismod orci semper, commodo lorem non, interdum ex. Nulla lectus purus, lobortis vel sollicitudin non, ultrices non augue. Quisque luctus ante in dignissim hendrerit. Phasellus porttitor aliquet arcu, ut eleifend augue. Cras semper, leo eu scelerisque faucibus, lacus nunc euismod lorem, et blandit enim nisl eu risus. Donec lobortis commodo fringilla. Phasellus cursus dui nec augue elementum, in tristique arcu malesuada. Integer ut leo ut risus convallis pharetra at quis eros.
+              </div>
 
-Donec varius interdum massa. Etiam et libero non ligula venenatis ultrices. Vivamus fringilla auctor elementum. Morbi sollicitudin ex lacus, quis eleifend tortor scelerisque eget. Nullam est metus, efficitur sed ipsum a, pharetra venenatis felis. Duis hendrerit tristique ornare. Praesent augue lectus, pharetra ut luctus ullamcorper, ornare sit amet urna. Vestibulum ullamcorper tempor sem, ut dignissim neque finibus vel. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut a eros non leo tempor molestie et ac dui. Cras tristique eros in eros varius, ac molestie purus dictum. Ut egestas velit quis nunc molestie ornare. Nullam sollicitudin egestas libero tincidunt viverra. Proin sit amet metus eget odio feugiat laoreet nec lobortis arcu. Integer lacus ligula, dictum vitae erat sit amet, sagittis dictum neque."        />
+              <button className="bg-purple-800 text-white px-6 py-2 rounded-md hover:bg-purple-900 transition-colors">
+                Explore Wine Data
+              </button>
+            </div>
+
+            <div className="relative">
+              <div className="aspect-w-4 aspect-h-3 rounded-lg overflow-hidden">
+                <img 
+                  src="https://img.freepik.com/free-photo/beautiful-view-vineyard-green-hills-sunset_181624-29312.jpg?t=st=1732495782~exp=1732499382~hmac=d9e764bf92b1947d2515bc3fd8ddc3ed7be1f4836a6b0a818debe0d736d95931&w=1380"
+                  alt="Vineyard statistics visualization"
+                  className="object-cover rounded-lg"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-16 text-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="p-6 bg-purple-50 rounded-lg">
+                <h3 className="text-2xl font-bold text-purple-800">11</h3>
+                <p className="text-gray-600">Regions Tracked</p>
+              </div>
+              <div className="p-6 bg-purple-50 rounded-lg">
+                <h3 className="text-2xl font-bold text-purple-800">2</h3>
+                <p className="text-gray-600">Colors of Wine</p>
+              </div>
+              <div className="p-6 bg-purple-50 rounded-lg">
+                <h3 className="text-2xl font-bold text-purple-800">5</h3>
+                <p className="text-gray-600">Wine Qualities</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Creators Card Section - Merged into a Single Row */}
+        <div className="mt-4 bg-white shadow-lg rounded-lg p-4 max-h-[200px] overflow-hidden mb-5"> {/* Added mb-5 here for the bottom margin */}
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">Meet the Creators</h2>
+          <div className="flex items-center justify-evenly space-x-6">
+            {/* First Creator: Lia Cardoso */}
+            <div className="flex items-center space-x-4">
+              <img
+                src={lia} 
+                alt="Lia Cardoso"
+                className="w-32 h-32 rounded-full object-cover"
+              />
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">Lia Cardoso</h3>
+                <p className="text-gray-600">Masters in Informatics Engineering</p>
+              </div>
+            </div>
+
+            {/* Second Creator: Liliana Ribeiro */}
+            <div className="flex items-center space-x-4">
+              <div className="text-right">
+                <h3 className="text-xl font-semibold text-gray-900">Liliana Ribeiro</h3>
+                <p className="text-gray-600">Masters in Informatics Engineering</p>
+              </div>
+              <img
+                src={liliana} 
+                alt="Liliana Ribeiro"
+                className="w-32 h-32 rounded-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

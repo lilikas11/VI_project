@@ -1,0 +1,514 @@
+{
+    "Portugal": {
+        "Total": {
+            "Total": "7372569",
+            "Verde": "4877703",
+            "Tinto": "2494866"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "654798",
+            "Verde": "497020",
+            "Tinto": "157778"
+        },
+        "Vinho com DOP": {
+            "Total": "3304541",
+            "Verde": "1898523",
+            "Tinto": "1406018"
+        },
+        "Vinho com IGP": {
+            "Total": "2755335",
+            "Verde": "1994928",
+            "Tinto": "760407"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "25741",
+            "Verde": "10541",
+            "Tinto": "15200"
+        },
+        "Vinho sem certificação": {
+            "Total": "632154",
+            "Verde": "476691",
+            "Tinto": "155463"
+        }
+    },
+    "Continente": {
+        "Total": {
+            "Total": "7331304",
+            "Verde": "4841519",
+            "Tinto": "2489786"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "624656",
+            "Verde": "467013",
+            "Tinto": "157643"
+        },
+        "Vinho com DOP": {
+            "Total": "3299004",
+            "Verde": "1897343",
+            "Tinto": "1401661"
+        },
+        "Vinho com IGP": {
+            "Total": "2754099",
+            "Verde": "1993901",
+            "Tinto": "760198"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "25738",
+            "Verde": "10541",
+            "Tinto": "15197"
+        },
+        "Vinho sem certificação": {
+            "Total": "627808",
+            "Verde": "472721",
+            "Tinto": "155087"
+        }
+    },
+    "Verdes": {
+        "Total": {
+            "Total": "924480",
+            "Verde": "124831",
+            "Tinto": "799649"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "0",
+            "Verde": "0",
+            "Tinto": "0"
+        },
+        "Vinho com DOP": {
+            "Total": "879226",
+            "Verde": "116437",
+            "Tinto": "762788"
+        },
+        "Vinho com IGP": {
+            "Total": "29141",
+            "Verde": "4927",
+            "Tinto": "24214"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "1107",
+            "Verde": "229",
+            "Tinto": "878"
+        },
+        "Vinho sem certificação": {
+            "Total": "15007",
+            "Verde": "3238",
+            "Tinto": "11769"
+        }
+    },
+    "Trás-os-Montes": {
+        "Total": {
+            "Total": "100793",
+            "Verde": "89113",
+            "Tinto": "11679"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "18",
+            "Verde": "18",
+            "Tinto": "0"
+        },
+        "Vinho com DOP": {
+            "Total": "17396",
+            "Verde": "13488",
+            "Tinto": "3908"
+        },
+        "Vinho com IGP": {
+            "Total": "5474",
+            "Verde": "3653",
+            "Tinto": "1821"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "30",
+            "Verde": "18",
+            "Tinto": "12"
+        },
+        "Vinho sem certificação": {
+            "Total": "77875",
+            "Verde": "71936",
+            "Tinto": "5939"
+        }
+    },
+    "Douro": {
+        "Total": {
+            "Total": "1402222",
+            "Verde": "1046641",
+            "Tinto": "355582"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "606403",
+            "Verde": "465114",
+            "Tinto": "141290"
+        },
+        "Vinho com DOP": {
+            "Total": "723875",
+            "Verde": "526481",
+            "Tinto": "197394"
+        },
+        "Vinho com IGP": {
+            "Total": "4881",
+            "Verde": "2376",
+            "Tinto": "2504"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "189",
+            "Verde": "147",
+            "Tinto": "42"
+        },
+        "Vinho sem certificação": {
+            "Total": "66874",
+            "Verde": "52522",
+            "Tinto": "14352"
+        }
+    },
+    "Bairrada": {
+        "Total": {
+            "Total": "251004",
+            "Verde": "162672",
+            "Tinto": "88332"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "39",
+            "Verde": "39",
+            "Tinto": "0"
+        },
+        "Vinho com DOP": {
+            "Total": "157766",
+            "Verde": "84458",
+            "Tinto": "73308"
+        },
+        "Vinho com IGP": {
+            "Total": "32543",
+            "Verde": "28640",
+            "Tinto": "3903"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "5343",
+            "Verde": "4156",
+            "Tinto": "1187"
+        },
+        "Vinho sem certificação": {
+            "Total": "55313",
+            "Verde": "45379",
+            "Tinto": "9934"
+        }
+    },
+    "Dão": {
+        "Total": {
+            "Total": "281195",
+            "Verde": "224261",
+            "Tinto": "56934"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "0",
+            "Verde": "0",
+            "Tinto": "0"
+        },
+        "Vinho com DOP": {
+            "Total": "253379",
+            "Verde": "201076",
+            "Tinto": "52303"
+        },
+        "Vinho com IGP": {
+            "Total": "5125",
+            "Verde": "4442",
+            "Tinto": "683"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "454",
+            "Verde": "222",
+            "Tinto": "232"
+        },
+        "Vinho sem certificação": {
+            "Total": "22236",
+            "Verde": "18520",
+            "Tinto": "3716"
+        }
+    },
+    "Beira Interior": {
+        "Total": {
+            "Total": "185796",
+            "Verde": "142562",
+            "Tinto": "43234"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "26",
+            "Verde": "26",
+            "Tinto": "0"
+        },
+        "Vinho com DOP": {
+            "Total": "91294",
+            "Verde": "68298",
+            "Tinto": "22996"
+        },
+        "Vinho com IGP": {
+            "Total": "36156",
+            "Verde": "29570",
+            "Tinto": "6586"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "0",
+            "Verde": "0",
+            "Tinto": "0"
+        },
+        "Vinho sem certificação": {
+            "Total": "58320",
+            "Verde": "44668",
+            "Tinto": "13652"
+        }
+    },
+    "Távora-Varosa": {
+        "Total": {
+            "Total": "52440",
+            "Verde": "22347",
+            "Tinto": "30093"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "0",
+            "Verde": "0",
+            "Tinto": "0"
+        },
+        "Vinho com DOP": {
+            "Total": "31134",
+            "Verde": "11493",
+            "Tinto": "19641"
+        },
+        "Vinho com IGP": {
+            "Total": "1334",
+            "Verde": "318",
+            "Tinto": "1016"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "0",
+            "Verde": "0",
+            "Tinto": "0"
+        },
+        "Vinho sem certificação": {
+            "Total": "19972",
+            "Verde": "10536",
+            "Tinto": "9436"
+        }
+    },
+    "Tejo": {
+        "Total": {
+            "Total": "759079",
+            "Verde": "375641",
+            "Tinto": "383438"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "697",
+            "Verde": "63",
+            "Tinto": "633"
+        },
+        "Vinho com DOP": {
+            "Total": "132132",
+            "Verde": "90627",
+            "Tinto": "41505"
+        },
+        "Vinho com IGP": {
+            "Total": "509059",
+            "Verde": "225791",
+            "Tinto": "283268"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "2349",
+            "Verde": "10",
+            "Tinto": "2339"
+        },
+        "Vinho sem certificação": {
+            "Total": "114843",
+            "Verde": "59150",
+            "Tinto": "55693"
+        }
+    },
+    "Lisboa": {
+        "Total": {
+            "Total": "1538940",
+            "Verde": "1254763",
+            "Tinto": "284177"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "575",
+            "Verde": "112",
+            "Tinto": "463"
+        },
+        "Vinho com DOP": {
+            "Total": "67346",
+            "Verde": "48227",
+            "Tinto": "19119"
+        },
+        "Vinho com IGP": {
+            "Total": "1320485",
+            "Verde": "1086356",
+            "Tinto": "234129"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "13779",
+            "Verde": "4454",
+            "Tinto": "9325"
+        },
+        "Vinho sem certificação": {
+            "Total": "136755",
+            "Verde": "115614",
+            "Tinto": "21141"
+        }
+    },
+    "Península Setúbal": {
+        "Total": {
+            "Total": "585679",
+            "Verde": "426483",
+            "Tinto": "159196"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "16700",
+            "Verde": "1558",
+            "Tinto": "15142"
+        },
+        "Vinho com DOP": {
+            "Total": "249842",
+            "Verde": "194562",
+            "Tinto": "55280"
+        },
+        "Vinho com IGP": {
+            "Total": "272402",
+            "Verde": "191908",
+            "Tinto": "80494"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "777",
+            "Verde": "10",
+            "Tinto": "767"
+        },
+        "Vinho sem certificação": {
+            "Total": "45958",
+            "Verde": "38445",
+            "Tinto": "7513"
+        }
+    },
+    "Alentejo": {
+        "Total": {
+            "Total": "1233063",
+            "Verde": "961210",
+            "Tinto": "271853"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "199",
+            "Verde": "83",
+            "Tinto": "115"
+        },
+        "Vinho com DOP": {
+            "Total": "694408",
+            "Verde": "541296",
+            "Tinto": "153112"
+        },
+        "Vinho com IGP": {
+            "Total": "522778",
+            "Verde": "406090",
+            "Tinto": "116689"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "1286",
+            "Verde": "1274",
+            "Tinto": "11"
+        },
+        "Vinho sem certificação": {
+            "Total": "14392",
+            "Verde": "12467",
+            "Tinto": "1926"
+        }
+    },
+    "Algarve": {
+        "Total": {
+            "Total": "16613",
+            "Verde": "10994",
+            "Tinto": "5619"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "0",
+            "Verde": "0",
+            "Tinto": "0"
+        },
+        "Vinho com DOP": {
+            "Total": "1205",
+            "Verde": "898",
+            "Tinto": "307"
+        },
+        "Vinho com IGP": {
+            "Total": "14721",
+            "Verde": "9829",
+            "Tinto": "4891"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "424",
+            "Verde": "20",
+            "Tinto": "404"
+        },
+        "Vinho sem certificação": {
+            "Total": "264",
+            "Verde": "247",
+            "Tinto": "17"
+        }
+    },
+    "Açores": {
+        "Total": {
+            "Total": "7975",
+            "Verde": "4240",
+            "Tinto": "3735"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "135",
+            "Verde": "0",
+            "Tinto": "135"
+        },
+        "Vinho com DOP": {
+            "Total": "3147",
+            "Verde": "0",
+            "Tinto": "3147"
+        },
+        "Vinho com IGP": {
+            "Total": "1236",
+            "Verde": "1027",
+            "Tinto": "209"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "4",
+            "Verde": "0",
+            "Tinto": "4"
+        },
+        "Vinho sem certificação": {
+            "Total": "3453",
+            "Verde": "3212",
+            "Tinto": "241"
+        }
+    },
+    "Madeira": {
+        "Total": {
+            "Total": "33290",
+            "Verde": "31945",
+            "Tinto": "1345"
+        },
+        "Vinho licoroso com DOP": {
+            "Total": "30007",
+            "Verde": "30007",
+            "Tinto": "0"
+        },
+        "Vinho com DOP": {
+            "Total": "2390",
+            "Verde": "1180",
+            "Tinto": "1210"
+        },
+        "Vinho com IGP": {
+            "Total": "0",
+            "Verde": "0",
+            "Tinto": "0"
+        },
+        "Vinho com indicação de casta": {
+            "Total": "0",
+            "Verde": "0",
+            "Tinto": "0"
+        },
+        "Vinho sem certificação": {
+            "Total": "893",
+            "Verde": "758",
+            "Tinto": "135"
+        }
+    }
+}

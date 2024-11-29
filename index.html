@@ -1,30 +1,153 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Mantis is react free admin template build using Vite" />
-    <link rel="apple-touch-icon" href="/logo192.png" />
-    <title>Mantis React Admin Dashboard</title>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Scatterplot de Vinho</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <svg width="800" height="700"></svg>
 
-    <!-- this is to resolve issue in old safari browser in tablet -->
-    <script src="https://cdn.jsdelivr.net/npm/resize-observer-polyfill@1.5.1/dist/ResizeObserver.min.js"></script>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+  <script>
+    (async function() {
+      // Dados de exemplo
+      const data = await d3.json("DataSet_wine.json");
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+      // Remover as localizações "Portugal" e "Continente"
+      delete data["Portugal"];
+      delete data["Continente"];
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-    <script type="module" src="/src/index.jsx"></script>
-  </body>
+      // Configurações do SVG e margens
+      const svg = d3.select("svg");
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+      const margin = {top: 50, right: 50, bottom: 100, left: 100};
+
+      // Configurações dos eixos
+      const x = d3.scalePoint()
+                  .domain(Object.keys(data))
+                  .range([margin.left, width - margin.right])
+                  .padding(0.5);
+
+      const y = d3.scaleLinear()
+                  .domain([0, d3.max(Object.keys(data).flatMap(location => 
+                    Object.values(data[location]).flatMap(type => [ +type.Verde, +type.Tinto])))])
+                  .nice()
+                  .range([height - margin.bottom, margin.top]);
+
+      // Paleta de cores para cada tipo de vinho
+      const color = d3.scaleOrdinal()
+                      .domain(["Red Total", "Red Vinho licoroso com DOP", "Red Vinho com DOP", "Red Vinho com IGP", "Red Vinho com indicação de casta", "Red Vinho sem certificação", "White Total", "White Vinho licoroso com DOP", "White Vinho com DOP", "White Vinho com IGP", "White Vinho com indicação de casta", "White Vinho sem certificação"])
+                      .range(["#600010", "#880315", "#B00B1B", "#D81622", "#FF252D", "#FF4F4E", "#045107",  "#279C1F", "#41C32A", "#69CF47", "#8FDD6B", "#B4E893" ]);
+
+      // Eixos
+      svg.append("g")
+         .attr("transform", `translate(0,${height - margin.bottom})`)
+         .call(d3.axisBottom(x))
+         .selectAll("text")
+         .attr("transform", "rotate(-45)")
+         .style("text-anchor", "end");
+
+      svg.append("g")
+         .attr("transform", `translate(${margin.left},0)`)
+         .call(d3.axisLeft(y));
+
+      // Legenda do eixo X
+      svg.append("text")
+         .attr("class", "x-axis-label")
+         .attr("text-anchor", "end")
+         .attr("x", width / 2 + margin.left)
+         .attr("y", height - margin.bottom + 50)
+         .text("Wine Regions");
+
+      // Legenda do eixo Y
+      svg.append("text")
+         .attr("class", "y-axis-label")
+         .attr("text-anchor", "end")
+         .attr("x", -height / 2 + margin.top)
+         .attr("y", margin.left - 60)
+         .attr("transform", "rotate(-90)")
+         .text("Quantidade de Vinho");
+
+      // Grelha horizontal
+      svg.append("g")
+         .attr("class", "grid")
+         .attr("transform", `translate(${margin.left},0)`)
+         .call(d3.axisLeft(y)
+           .tickSize(-width + margin.left + margin.right)
+           .tickFormat(""));
+
+      // Grelha vertical
+      svg.append("g")
+         .attr("class", "grid")
+         .attr("transform", `translate(0,${height - margin.bottom})`)
+         .call(d3.axisBottom(x)
+           .tickSize(-height + margin.top + margin.bottom)
+           .tickFormat(""));
+
+      // Dados no formato adequado para plotagem
+      const plotData = [];
+      for (const location in data) {
+        for (const type in data[location]) {
+          plotData.push({ location: location, type: `Red ${type}`, value: +data[location][type]["Tinto"] });
+          plotData.push({ location: location, type: `White ${type}`, value: +data[location][type]["Verde"] });
+        }
+      }
+
+      // Scatterplot
+      svg.selectAll("circle")
+         .data(plotData)
+         .enter()
+         .append("circle")
+         .attr("cx", d => x(d.location))
+         .attr("cy", d => y(d.value))
+         .attr("r", 6)
+         .attr("fill", d => color(d.type))
+         .attr("class", d => `circle-${d.type.replace(/\s+/g, '-')}`);
+
+      // Legenda
+      const legend = d3.select("body").append("div")
+            .attr("class", "legend")
+            .style("position", "absolute")
+            .style("top", `${margin.top}px`)
+            .style("right", `${margin.right}px`);
+
+      legend.selectAll("label")
+        .data(color.domain())
+        .enter()
+        .append("label")
+        .style("display", "block")
+        .style("margin-bottom", "5px")
+        .each(function(d) {
+          const label = d3.select(this);
+
+          label.append("input")
+           .attr("type", "checkbox")
+           .attr("checked", true)
+           .on("change", function(event) {
+             const checked = this.checked;
+             svg.selectAll(`.circle-${d.replace(/\s+/g, '-')}`)
+                .attr("display", checked ? null : "none");
+           });
+
+          label.append("span")
+           .style("background-color", color(d))
+           .style("display", "inline-block")
+           .style("width", "18px")
+           .style("height", "18px")
+           .style("margin-right", "5px");
+
+          label.append("span")
+           .text(d);
+        });
+    })();
+  </script>
+  <style>
+    .grid line {
+      stroke: lightgrey;
+      stroke-opacity: 0.7;
+      shape-rendering: crispEdges;
+    }
+  </style>
+</body>
 </html>
